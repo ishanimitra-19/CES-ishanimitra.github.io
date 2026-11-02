@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 2: Interactive Devices | Ishani Mitra</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F1F8; --ink: #1F152B; --muted: #675C76; --rule: #D8D0E4;
+    --mask: #43257A; --gold: #C79A2B; --link: #43257A; --codebg: #1B1426; --codeink: #EDE6F7;
+    --display: "Syne", "Trebuchet MS", "Segoe UI", sans-serif;
+    --body: "Karla", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #150E1F; --ink: #EEE9F5; --muted: #A69BB7; --rule: #342849; --link: #C6ACF7; --codebg: #0E0916; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; }
+  a { color: var(--link); text-underline-offset: 0.18em; text-decoration-thickness: 1.5px; }
+  a:hover { text-decoration-thickness: 3px; }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 0 1.5rem; }
+  .back { display: inline-block; margin: 2rem 0 0; font-weight: 700; }
+  header { padding: 1.5rem 0 2.5rem; border-bottom: 1.5px solid var(--rule); }
+  .kicker { color: var(--muted); margin: 0 0 0.5rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.85rem; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1; letter-spacing: -0.03em; margin: 0 0 1rem; }
+  .meta { color: var(--muted); margin: 0; }
+  .meta a { font-weight: 700; }
+  h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.5rem, 3vw, 1.9rem); letter-spacing: -0.02em; line-height: 1.15; margin: 3rem 0 0.75rem; }
+  p { margin: 0 0 1.1rem; }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.93em; background: rgba(67,37,122,0.08); padding: 0.1em 0.35em; border-radius: 4px; }
+  pre { background: var(--codebg); color: var(--codeink); padding: 1rem 1.1rem; border-radius: 10px; overflow-x: auto; font-size: 0.86rem; line-height: 1.5; margin: 0 0 1.4rem; }
+  pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+  figure { margin: 2rem 0; }
+  figure img, figure video { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 18px 36px -22px rgba(44,23,84,0.5); background: #000; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .pair img, .pair video { aspect-ratio: 3 / 4; object-fit: cover; }
+  .tall { max-width: 24rem; margin-left: auto; margin-right: auto; }
+  figcaption { color: var(--muted); font-size: 0.92rem; margin-top: 0.6rem; line-height: 1.4; }
+  footer { border-top: 1.5px solid var(--rule); margin-top: 3.5rem; padding: 1.75rem 0 3rem; color: var(--muted); font-size: 0.95rem; }
+  @media (max-width: 560px) { .pair { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← All projects</a>
+
+  <header>
+    <p class="kicker">Module 2</p>
+    <h1>Interactive Devices: Block Blast</h1>
+    <p class="meta">Ishani Mitra · Creative Embedded Systems, Fall 2026 · <a id="repo-link" href="#">GitHub repo</a></p>
+  </header>
+
+  <main>
+    <h2>Artistic Inspiration / Vision</h2>
+    <p>Growing up, I would play <em>The Legend of Zelda</em> with my little brother on the Wii U. The controller had a joystick and different knobs and buttons, while the display was on the TV. Video games with a joystick are fun because it gives you the ability to move around. Block Blast is a game like Tetris; however, it's usually played on an iPhone or iPad screen, with no use of a joystick. I was inspired by those retro Tetris handheld players to create a Block Blast version of my own.</p>
+    <h2>Design Decisions</h2>
+    <p>Before setting out to build the game, I knew I wanted to use Pygame for the interface of the game, and I wanted to practice working with C++ for the inputs and logic in Arduino. Another important decision was determining what each of the hardware components would control in the game. The joystick was the obvious choice to allow the user to move the block around the 8x8 square, with the built-in button on the joystick used to place the block. The potentiometer was used to rotate between the blocks, and the second button was used to select a piece before the joystick comes into play.</p>
+
+    <figure>
+      <video src="media/m2_video1.mp4" autoplay loop muted playsinline controls></video>
+      <figcaption>Playing Block Blast with the joystick, potentiometer, and buttons.</figcaption>
+    </figure>
+
+    <h2>Technical Implementation</h2>
+    <p>Throughout the implementation of this project, the hardest part was definitely understanding the circuitry of the breadboard, and making sure the jumpers were aligned to a + and − charge and the corresponding component. Soldering was also quite difficult for me. I had a lot of coffee that day, so my hands were shaky, making soldering very tricky, as holding the wire and board simultaneously took some effort. I also learned how important it is to use less solder, because originally my soldered heads were touching, and this shorted the ESP's circuitry. Removing solder was another very difficult process, and I ended up accidentally breaking my ESP board entirely, as I unintentionally burned it and the pieces on the board had fallen out. I had to get an entirely new ESP, so this was probably the most challenging aspect of the project.</p>
+
+    <figure class="pair">
+      <img src="media/m2_soldering.jpg" alt="Soldering at the lab bench with the Hakko station" loading="lazy">
+      <video src="media/m2_video2.mp4" autoplay loop muted playsinline></video>
+    </figure>
+
+    <figure class="pair">
+      <img src="media/m2_breadboard_early.jpg" alt="Early breadboard with button, LED, resistor, and joystick wired in" loading="lazy">
+      <img src="media/m2_esp_wiring.jpg" alt="Close-up of the ESP32 TTGO board wired to the button and LED on the breadboard" loading="lazy">
+    </figure>
+
+    <p>Rendering the game on the computer screen via serial worked accordingly with a desktop viewer built with Python + Pygame. Pyserial was the pipe, and it opened the USB port connected to the ESP32, reading the bytes that were printed from the microcontroller. The sketch sends one line per frame, for example, <code>F;33;0;1;0;0;0;0000...0000;3,2,.####.,7;3,3,..#..####,5;2,2,####,1</code>. This translated to the score · mode · selected slot · cursor x,y · game over · 64 grid cells · the 3 pieces. I incorporated Pygame into the screen, so once you run the terminal commands, it opens the window, draws the 8x8 grid, and plays the sound. I used <code>import numpy</code> to generate the music waveforms. Luckily, the Tetris music was uncopyrighted, so I used the iconic Russian-sounding music in the background. The function <code>sendFrame()</code> was the most important piece of the code, because it would essentially take a snapshot of the game, capturing the score, which piece the user had selected, where the cursor is, and what was filled on the 8x8 grid. This function would condense all of the user logic and inputs and put it into one line of text, sent from the USB cable to the Mac. The Python viewer is what reads this line and draws out the GUI.</p>
+
+    <figure>
+      <img src="media/m2_game_screen.jpg" alt="The Block Blast Pygame window on the monitor with the breadboard controller held in front" loading="lazy">
+      <figcaption>The Pygame viewer running on the Mac, driven by the breadboard over serial.</figcaption>
+    </figure>
+
+    <p>This is the section of code discussed above:</p>
+<pre><code>void sendFrame() {
+  Serial.print("F;"); Serial.print(score);
+  Serial.print(';');  Serial.print(mode == PLACE ? 1 : 0);
+  Serial.print(';');  Serial.print(sel);
+  Serial.print(';');  Serial.print(cx);
+  Serial.print(';');  Serial.print(cy);
+  Serial.print(';');  Serial.print(gameOver ? 1 : 0);
+  Serial.print(';');
+  for (int y = 0; y &lt; GRID_H; y++)
+    for (int x = 0; x &lt; GRID_W; x++) Serial.print(grid[y][x]);
+  for (int i = 0; i &lt; 3; i++) {
+    Serial.print(';');
+    if (pieces[i] &lt; 0) Serial.print('-');
+    else {
+      const Shapes = SHAPES[pieces[i]];
+      Serial.print(s.w); Serial.print(','); Serial.print(s.h); Serial.print(',');
+      Serial.print(s.cells); Serial.print(','); Serial.print((pieces[i] % 7) + 1);
+    }
+  }
+  Serial.println();
+}</code></pre>
+
+    <p>From the Python viewer file, there were a few important lines of code that received the new bytes, updated the Python copy of the board, and redrew everything on the GUI.</p>
+    <p><code>ser.read()</code> reads whatever the board sends, keeps it in <code>buf</code>, and hands off the line once <code>\n</code> arrives.</p>
+<pre><code>if ser.in_waiting:
+    buf += ser.read(ser.in_waiting)
+    while b"\n" in buf:
+        line, buf = buf.split(b"\n", 1)
+        st.parse(line.decode(errors="ignore"), audio)</code></pre>
+
+    <p><code>State.parse</code> is also important because it splits the line and stores each field, which is the mirror image of <code>sendFrame()</code> on Arduino.</p>
+<pre><code>parts = line.strip().split(";")
+if len(parts) != 11 or parts[0] != "F":
+    return False
+self.score = int(parts[1]); self.mode = int(parts[2]); self.sel = int(parts[3])
+self.cx = int(parts[4]); self.cy = int(parts[5]); self.over = int(parts[6])
+g = parts[7]
+if len(g) == GRID * GRID:
+    self.grid = [[int(g[y * GRID + x]) for x in range(GRID)] for y in range(GRID)]
+for i in range(3):
+    p = parts[8 + i]
+    if p == "-":
+        self.pieces[i] = None
+    else:
+        w, h, cells, col = p.split(",")
+        self.pieces[i] = (int(w), int(h), cells, int(col))</code></pre>
+
+    <p>Another important piece of the Python viewer file was the <code>draw()</code> function, which paints the cells and scores and then uses a while loop to tie them together.</p>
+<pre><code>for y in range(GRID):
+    for x in range(GRID):
+        draw_cell(screen, ox + x * CELL, oy + y * CELL, CELL, COLORS[st.grid[y][x]])
+...
+screen.blit(font.render(f"Score  {st.score}", True, TEXT), (px, oy + 50))
+...
+pygame.display.flip()
+while True:
+    ...                       # 1. read serial → parse
+    btn = draw(screen, st, font, small, big, status, audio)   # 3. draw
+    clock.tick(60)</code></pre>
+
+    <figure class="pair">
+      <img src="media/m2_breadboard_full.jpg" alt="The finished breadboard with ESP32, button, potentiometer, and joystick, in front of the code on the monitor" loading="lazy">
+      <video src="media/m2_video3.mp4" autoplay loop muted playsinline></video>
+    </figure>
+
+    <h2>AI Use</h2>
+    <p>I laid out the idea, the hardware connections, and the overall goal in a Claude prompt. I used Claude Fable 5.1 to generate the game in C++. My exact prompt was: "Build me a block blast game with the display on my computer. Must be written in C/C++ and so I can run it on the arduino IDE, the joy stick controls where u place the block the button on the joy stick lets u place it, potencimoter lets u select one of the three block choices, and other button lets u select one of these blocks. Do you have any other questions before you build?" It took a fair amount of prompt engineering to get the final product, whether it was changing the music or removing random bugs like the serial port text appearing on the GUI.</p>
+  </main>
+
+  <footer>
+    <a href="index.html">← Back to all projects</a>
+  </footer>
+</div>
+
+<script>
+  // Paste your Module 2 GitHub repo URL between the quotes.
+  const REPO = "";
+  const r = document.getElementById("repo-link");
+  if (REPO) r.href = REPO; else r.remove();
+</script>
+</body>
+</html>
